@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE 2025</title>
+    <style>
+        body {
+            margin: 0;
+			text-transform: capitalize;
+			font-family: sans-serif;
+            background-color: black;
+            color: white;
+			letter-spacing: .6rem;
+            text-align: center;
+        }
+        .container {
+			padding: 1.5rem;
+			margin-top: 2rem;
+            margin-inline: 20%;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 40px;
+        }
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+        .day-box {
+            width: 2rem;
+            height: 2rem;
+             background: rgb(255,0,106);
+background: linear-gradient(90deg, rgba(255,0,50,1) 0%, rgba(36,0,12,0.8924558587479936) 100%); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">NO OF DAYS LEFT FOR JEE 2025</div>
+        <div id="days-container" class="days-container"></div>
+    </div>
+
+    <script>
+        function calculateDaysLeft(targetDate) {
+            const today = new Date();
+            const endDate = new Date(targetDate);
+            const difference = endDate - today;
+            const daysLeft = Math.ceil(difference / (1000 * 60 * 60 * 24));
+            return daysLeft;
+        }
+
+        function createDaysBoxes(daysLeft) {
+            const container = document.getElementById('days-container');
+            container.innerHTML = '';
+            for (let i = 0; i < daysLeft; i++) {
+                const dayBox = document.createElement('div');
+                dayBox.classList.add('day-box');
+                container.appendChild(dayBox);
+            }
+        }
+
+        const targetDate = '2025-01-24';
+        const daysLeft = calculateDaysLeft(targetDate);
+        createDaysBoxes(daysLeft);
+    </script>
+</body>
+</html>
