@@ -1,70 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE 2025</title>
-    <style>
-        body {
-            margin: 0;
-			text-transform: capitalize;
-			font-family: sans-serif;
-            background-color: black;
-            color: white;
-			letter-spacing: .6rem;
-            text-align: center;
-        }
-        .container {
-			padding: 1.5rem;
-			margin-top: 2rem;
-            margin-inline: 20%;
-        }
-        .title {
-            font-size: 2em;
-            margin-bottom: 40px;
-        }
-        .days-container {
-            display: grid;
-            grid-template-columns: repeat(16, 1fr);
-            gap: 10px;
-            justify-content: center;
-        }
-        .day-box {
-            width: 2rem;
-            height: 2rem;
-             background: rgb(255,0,106);
-background: linear-gradient(90deg, rgba(255,0,50,1) 0%, rgba(36,0,12,0.8924558587479936) 100%); 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE 2025</title>
+<style>
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: black;
+  color: white;
+}
+
+.container {
+  padding: 1.5rem;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  letter-spacing: .6rem;
+  text-transform: capitalize;
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+.days-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 10px;
+  justify-content: center;
+}
+
+.day-box {
+  width: 2rem;
+  height: 2rem;
+  background: rgb(255,0,106);
+  background: linear-gradient(90deg, rgba(255,0,50,1) 0%, rgba(36,0,12,0.8924558587479936) 100%);
+}
+
+.source-link {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: gray;
+  padding: 5px 10px;
+  text-decoration: none;
+  font-size: 1.3em;
+  border-radius: 16px;
+}
+
+.source-link:hover {
+  color: rgb(255,0,50);
+}
+
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .day-box {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .days-container {
+  grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+  }
+}
+
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">NO OF DAYS LEFT FOR JEE 2025</div>
-        <div id="days-container" class="days-container"></div>
-    </div>
+<div class="container">
+  <div id="title" class="title">NO OF DAYS LEFT FOR JEE 2025</div>
+  <div id="days-container" class="days-container"></div>
+</div>
+<a href="https://github.com/at-pyrix/jee-counter" class="source-link" target="_blank">&lt;/&gt;
+</a>
 
-    <script>
-        function calculateDaysLeft(targetDate) {
-            const today = new Date();
-            const endDate = new Date(targetDate);
-            const difference = endDate - today;
-            const daysLeft = Math.ceil(difference / (1000 * 60 * 60 * 24));
-            return daysLeft;
-        }
+<script>
+function calculateDaysLeft(targetDate) {
+  const today = new Date();
+  const endDate = new Date(targetDate);
+  const difference = endDate - today;
+  const daysLeft = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  return daysLeft;
+}
 
-        function createDaysBoxes(daysLeft) {
-            const container = document.getElementById('days-container');
-            container.innerHTML = '';
-            for (let i = 0; i < daysLeft; i++) {
-                const dayBox = document.createElement('div');
-                dayBox.classList.add('day-box');
-                container.appendChild(dayBox);
-            }
-        }
+function createDaysBoxes(daysLeft) {
+  const container = document.getElementById('days-container');
+  container.innerHTML = '';
+  for (let i = 0; i < daysLeft; i++) {
+    const dayBox = document.createElement('div');
+    dayBox.classList.add('day-box');
+    container.appendChild(dayBox);
+  }
+}
 
-        const targetDate = '2025-01-24';
-        const daysLeft = calculateDaysLeft(targetDate);
-        createDaysBoxes(daysLeft);
-    </script>
+function updateTitleText() {
+  const titleElement = document.getElementById('title');
+  if (window.innerWidth <= 600) {
+    titleElement.textContent = 'DAYS LEFT FOR JEE 2025';
+  } else {
+    titleElement.textContent = 'NO OF DAYS LEFT FOR JEE 2025';
+  }
+}
+
+// Initial update
+updateTitleText();
+
+// Update title text on window resize
+window.addEventListener('resize', updateTitleText);
+
+const targetDate = '2025-01-24';
+const daysLeft = calculateDaysLeft(targetDate);
+createDaysBoxes(daysLeft);
+</script>
 </body>
 </html>
